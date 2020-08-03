@@ -8,13 +8,32 @@
 
 import SwiftUI
 
+
+// Custom Modifier
+
+
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.blue)
+    }
+}
+
+
+
 struct GridStack<Content: View>: View {
     let rows: Int
     let columns: Int
     let content: (Int,Int) ->Content
     
     var body: some View {
+        
+        
+        
         VStack{
+            Text("Matrix")
+            .titleStyle()
             ForEach(0 ..< rows) { row in
                 HStack{
                     ForEach(0 ..< self.columns) { column in
@@ -44,5 +63,12 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+
+extension View {
+    func titleStyle() -> some View {
+        self.modifier(Title())
     }
 }
